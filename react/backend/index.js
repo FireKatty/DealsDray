@@ -12,11 +12,9 @@ const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 3000;
 
-// Connect to MongoDB database
 mongoose.connect('mongodb://localhost:27017/Dealsdray', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
-// Define Employee schema
 const employeeSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   name: String,
@@ -33,17 +31,15 @@ const loginSchema = new mongoose.Schema({
     password:String
 
 });
-// create user login model
+
 const Userid = mongoose.model('t_user',loginSchema);
 
-// Create Employee model
 const Employee = mongoose.model('t_employees', employeeSchema);
 
-// Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// API endpoint to store login details
+
 app.post("/signup",async(req,res)=>{
     let user = new Userid(req.body);
     let result = await user.save();
@@ -51,12 +47,7 @@ app.post("/signup",async(req,res)=>{
     delete result.password
     console.warn(result)
     res.send(result)
-    // Jwt.sign({result},jwtKey,{expiresIn:'2h'},(err,token)=>{
-    //     if(err){
-    //         res.send({result:"something went wrong"})
-    //     }
-    //     res.send({result,auth:token})
-    // })
+    
 });
 
 app.post("/login",async(req,res)=>{
@@ -64,30 +55,11 @@ app.post("/login",async(req,res)=>{
       console.log(req.body)
         let user = await Userid.findOne(req.body).select("-password");
         res.send(user)}
-    //     if (user){
-    //         Jwt.sign({user},jwtKey,{expiresIn:'2h'},(err,token)=>{
-    //             if (err){
-    //                 res.send({result:"something went wrong"})
-    //             }
-    //             res.send({user,auth:token})
-    //         })  
-    //     }else{
-    //         res.send({result:'No user Found'})
-    //     }       
-    // }
-    // else{
-    //     res.send({result:'No user found'});
-    // }
+
 });
 
 
 
-
-
-// API endpoint to store employee data
-// app.use(bodyParser.json());
-
-// Multer configuration for handling file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads');
@@ -98,10 +70,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// API endpoint to handle form submission
 app.post('/create', upload.single('file'), async (req, res) => {
   try {
-    // Create a new employee instance using data from the request body and file path
+  
     const newEmployee = new Employee({
       name: req.body.name,
       email: req.body.email,
@@ -109,13 +80,13 @@ app.post('/create', upload.single('file'), async (req, res) => {
       designation: req.body.designation,
       gender: req.body.gender,
       courses: req.body.courses,
-      file: req.file.path // Save file path in database
+      file: req.file.path 
     });
 
-    // Save the new employee to the database
+  
     await newEmployee.save();
 
-    // Send a success response
+    
     res.status(201).json({ message: 'Employee created successfully', employee: newEmployee });
   } catch (error) {
     console.error('Error creating employee:', error);
@@ -123,21 +94,6 @@ app.post('/create', upload.single('file'), async (req, res) => {
   }
 });
 
-// Start the server
-
-// API endpoint to fetch all employee details
-// app.get('/list', async (req, res) => {
-//   try {
-//     // Fetch all employees from the database
-//     const employees = await Employee.find();
-
-//     // Send the list of employees as JSON response
-//     res.json(employees.);
-//   } catch (error) {
-//     console.error('Error fetching employees:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
 
 
 
@@ -151,13 +107,12 @@ app.get('/list',async(req,res)=>{
     }
 });
 
-// API endpoint to update employee details
+
 app.put('/update/:id', async (req, res) => {
   const { id } = req.params;
   const { name, email, mobile, designation, gender, courses } = req.body;
 
   try {
-    // Find the employee by ID and update their data
     const updatedEmployee = await Employee.findByIdAndUpdate(id, {
       name,
       email,
@@ -215,11 +170,6 @@ app.get('/data/:id', async (req, res) => {
 });
 
 
-
-  
-
-
-// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

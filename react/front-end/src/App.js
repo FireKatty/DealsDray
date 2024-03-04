@@ -1,14 +1,12 @@
-// impor  t logo from './logo.svg';
 import './App.css';
 import Nav from "./components/nav";
-// import Footer from "./components/footer"
 import { BrowserRouter,Routes,Route} from 'react-router-dom'
 import Private from './components/pc';
 import SignUp   from './components/SignUp';
 import Login from './components/login';
-import Employee from './components/product';
-import List from './components/list';
-import UpdateProduct from './components/updateproduct'
+import EmployeeList from './components/EmployeeLIst';
+import CreateEmployee from './components/CreateEmployee';
+import EditEmployee from './components/EditEmployee'
 
 function App() {
 
@@ -18,9 +16,9 @@ function App() {
         <Nav />
         <Routes>
           <Route element={<Private />}>
-          <Route path='/' element={<List/>}/>
-          <Route path='/add' element={<Employee/>}/>
-          <Route path='/update/:id' element={<UpdateProduct/>}/>
+          <Route path='/' element={<CreateEmployee/>}/>
+          <Route path='/add' element={<EmployeeList/>}/>
+          <Route path='/update/:id' element={<EditEmployee/>}/>
     
           <Route path='/logout' element={<h1>Logout</h1>}/>
           </Route>
@@ -29,7 +27,7 @@ function App() {
           <Route path='/login' element={<Login/>}/>
         </Routes>
       </BrowserRouter>
-      {/* <Footer/> */}
+  
       
     </div>
   );

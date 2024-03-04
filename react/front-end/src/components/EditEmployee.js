@@ -24,26 +24,13 @@ const UpdateEmployee = ()=> {
         const response = await fetch(`http://localhost:3000/data/${params.id}`);
         const data = await response.json();
         setEmployee(data);
-        // fetchFile(data.file);
+
       } catch (error) {
         console.error('Error fetching employee data:', error);
       }
     };
 
-//   const fetchFile = async (filePath) => {
-//     try {
-//       const fileResponse = await axios.get(filePath, {
-//         responseType: 'blob' // Set responseType to 'blob' for file download
-//       });
-//       const file = new File([fileResponse.data], 'fetchedFile.png', { type: 'image/png' }); // Create a File object
-//       setEmployee(prevData => ({
-//         ...prevData,
-//         file
-//       }));
-//     } catch (error) {
-//       console.error('Error fetching file:', error);
-//     }
-//   };
+
 
 
 
@@ -75,10 +62,10 @@ const UpdateEmployee = ()=> {
         body: formData
       });
       if (response.ok) {
-        // Employee updated successfully
+      
         alert('Employee updated successfully.');
       } else {
-        // Handle update failure
+    
         alert('Failed to update employee. Please try again later.');
       }
     } catch (error) {
