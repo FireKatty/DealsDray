@@ -169,17 +169,7 @@ app.get('/data/:id', async (req, res) => {
 });
 
 
-// app.get("/search/:key",async(req,res)=>{
-//   let result = await Employee.find({
-//       "$or":[
-//           {name:{$regex:req.params.key}},
-//           {email:{$regex:req.params.key}},
-//           {courses:{$regex:req.params.key}},
-//           {id:{$regex:req.params.key}}
-//       ]       
-//   });
-//   res.status(200).send(result)
-// })
+
 
 
 app.listen(PORT, () => {

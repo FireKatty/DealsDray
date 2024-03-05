@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 const SignUp = ()=>{
     const navigate = useNavigate();
-    const auth = localStorage.getItem('user');
+    
     useEffect(()=>{
+        const auth = localStorage.getItem('user');
         if (auth){
             navigate("/")
         }
@@ -26,7 +27,7 @@ const SignUp = ()=>{
             });
             result = await result.json();
             console.log(result);
-            localStorage.setItem("user",JSON.stringify(result.result));
+            localStorage.setItem("user",JSON.stringify(result));
         
             navigate("/");
 

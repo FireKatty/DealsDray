@@ -13,11 +13,13 @@ const Nav = ()=>{
         <div>
 
                         
-            {
+            {auth ?
                 <ul className='nav-ul'><>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/add">Employee List</Link></li>
-                <li className='nav-right'><Link onClick={logout} to="/signup">Logout </Link></li>
+                <li className='right'><Link onClick={logout} to="/signup">Logout - {JSON.parse(auth).email} </Link></li>
+                </></ul>:
+                <ul className='nav-ul nav-right'><>
                 <li><Link to='/login'>Login</Link></li>
                 <li><Link to="/signup">SignUp</Link></li>
                 </></ul>

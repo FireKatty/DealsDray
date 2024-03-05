@@ -15,10 +15,14 @@
   background: skyblue;
 }
 
-.nav-right{
+.right{
+  margin: 0;
+  padding: 0;
+  background: skyblue;
   text-align: right;
   padding-right: 10%;
 }
+
 
 .SignUp{
   margin-left: 30%;
