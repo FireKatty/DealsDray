@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function EmployeeList() {
   const [employees, setEmployees] = useState([]);
@@ -37,10 +37,10 @@ function EmployeeList() {
     setFilteredEmployees(filteredResults);
   };
 
-  const navigate = useNavigate();
-  const handleEdit = (id) => {
-    navigate('/updateproduct')
-  };
+  // const navigate = useNavigate();
+  // const handleEdit = (id) => {
+  //   navigate('/updateproduct')
+  // };
 
   const handleDelete = async (id) => {
     try {
@@ -100,9 +100,9 @@ function EmployeeList() {
               <td>{employee.createDate}</td>
               <td>
                 {/* <button onClick={() => handleEdit(employee._id)}>Edit</button> */}
-                <Link to={"/update/"+employee._id}>Edit</Link>
+                <button ><Link to={"/update/"+employee._id}>Edit</Link></button>
               
-                <button onClick={() => handleDelete(employee._id)}>Delete</button>
+                <button onClick={() => handleDelete(employee._id)}><Link>Delete</Link></button>
               </td>
             </tr>
           ))}
