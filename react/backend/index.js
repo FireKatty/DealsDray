@@ -46,12 +46,12 @@ app.post("/signup",async(req,res)=>{
     result = result.toObject();
     delete result.password
     console.warn(result)
-      Jwt.sign({result},jwtKey,{expiresIn:"2h"},(err,token)=>{
-        if (err){
-          res.send({user:"Please try after sometime"})
-        }
-        res.send({result,auth:token})
-      })
+    Jwt.sign({result},jwtKey,{expiresIn:"2h"},(err,token)=>{
+      if (err){
+        res.send({user:"Please try after sometime"})
+      }
+      res.send({result,auth:token})
+    })
     
     // res.send(result)
     
@@ -87,7 +87,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-app.post('/create', upload.single('file'), async (req, res) => {
+app.post('/create', verifytoken,upload.single('file'), async (req, res) => {
   try {
   
     const newEmployee = new Employee({
@@ -114,7 +114,7 @@ app.post('/create', upload.single('file'), async (req, res) => {
 
 
 
-app.get('/list',async(req,res)=>{
+app.get('/list',verifytoken,async(req,res)=>{
     let result = await Employee.find();
     if (result.length>0){
     res.send(result)
@@ -125,7 +125,7 @@ app.get('/list',async(req,res)=>{
 });
 
 
-app.put('/update/:id', async (req, res) => {
+app.put('/update/:id', verifytoken,async (req, res) => {
   // const { id } = req.params;
   const { name, email, mobile, designation, gender, courses } = req.body;
   try {
@@ -149,7 +149,7 @@ app.put('/update/:id', async (req, res) => {
   }
 });
 
-app.delete('/delete/:id', async (req, res) => {
+app.delete('/delete/:id',verifytoken, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -167,7 +167,7 @@ app.delete('/delete/:id', async (req, res) => {
   }
 });
 
-app.get('/data/:id', async (req, res) => {
+app.get('/data/:id',verifytoken, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -184,6 +184,23 @@ app.get('/data/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+function verifytoken(req,res,next) {
+  let token = req.headers['authorization']
+  if (token){
+    // token = token.split(' ')[1]
+    Jwt.verify(token,jwtKey,(err,valid)=>{
+      if (err){
+        res.status(401).send({result:"Please provide valid token"})
+      }
+      next();
+    })
+  }else{
+    res.status(403).send({result:'Please provide'})
+  }
+
+}
+
 
 
 

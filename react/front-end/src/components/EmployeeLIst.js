@@ -18,7 +18,9 @@ function EmployeeList() {
   const fetchData = async () => {
     try {
 
-      const response = await fetch('http://localhost:3000/list');
+      const response = await fetch('http://localhost:3000/list',{
+        headers:{authorization:JSON.parse(localStorage.getItem('token'))}
+      });
       const data = await response.json();
       setEmployees(data);
       setFilteredEmployees(data);
@@ -43,7 +45,8 @@ function EmployeeList() {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/delete/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers:{authorization:JSON.parse(localStorage.getItem('token'))}
       });
       
       if (response.ok) {

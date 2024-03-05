@@ -21,7 +21,9 @@ const UpdateEmployee = ()=> {
   const fetchEmployeeData = async () => {
       try {
         console.log(params.id)
-        const response = await fetch(`http://localhost:3000/data/${params.id}`);
+        const response = await fetch(`http://localhost:3000/data/${params.id}`,{
+          headers:{authorization:JSON.parse(localStorage.getItem('token'))}
+        });
         const data = await response.json();
         setEmployee(data);
 
@@ -68,7 +70,7 @@ const UpdateEmployee = ()=> {
       const response = await fetch(`http://localhost:3000/update/${params.id}`, {
         method: 'PUT',
         body: JSON.stringify({name,email,mobile,designation,gender,courses,file}),
-        headers:{'content-Type':"application/json"}
+        headers:{'content-Type':"application/json",authorization:JSON.parse(localStorage.getItem('token'))}
     });
     
       if (response.ok) {

@@ -25,7 +25,8 @@ function Product() {
     try {
         let result = await fetch('http://localhost:3000/create', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers:{authorization:JSON.parse(localStorage.getItem('token'))}
       });
 
       if (result.ok) {
