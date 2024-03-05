@@ -20,6 +20,7 @@ const Login =()=>{
         })
         result = await result.json()
         console.warn(result)
+        localStorage.setItem("user",JSON.stringify(result));
         // localStorage.setItem('user',JSON.stringify(result.user));
         navigate("/")
     

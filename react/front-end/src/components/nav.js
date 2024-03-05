@@ -17,7 +17,7 @@ const Nav = ()=>{
                 <ul className='nav-ul'><>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/add">Employee List</Link></li>
-                <li className='right'><Link onClick={logout} to="/signup">Logout - {JSON.parse(auth).email} </Link></li>
+                <li><Link onClick={logout} to="/signup">Logout - {JSON.parse(auth).email} </Link></li>
                 </></ul>:
                 <ul className='nav-ul nav-right'><>
                 <li><Link to='/login'>Login</Link></li>

@@ -15,14 +15,10 @@
   background: skyblue;
 }
 
-.right{
-  margin: 0;
-  padding: 0;
-  background: skyblue;
+.nav-right{
   text-align: right;
   padding-right: 10%;
 }
-
 
 .SignUp{
   margin-left: 30%;
@@ -185,7 +181,15 @@ label, input, select {
   max-width: 800px;
 }
 
-
+input[type="text"] {
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  /* width: 100%; */
+}
 
 table {
   width: 100%;
