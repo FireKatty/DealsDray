@@ -47,22 +47,49 @@ const UpdateEmployee = ()=> {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append('name', employee.name);
-    formData.append('email', employee.email);
-    formData.append('mobile', employee.mobile);
-    formData.append('designation', employee.designation);
-    formData.append('gender', employee.gender);
+    // const formData = new FormData();
+    // formData.append('name', employee.name);
+    const name = employee.name;
+    // formData.append('email', employee.email);
+    const email = employee.email;
+    // formData.append('mobile', employee.mobile);
+    const mobile = employee.mobile;
+    // formData.append('designation', employee.designation);
+    const designation = employee.designation;
+    // formData.append('gender', employee.gender);
+    const gender = employee.gender;
+    // formData.append('courses',employee.courses[0])
+    const courses = employee.courses[0];
     // employee.courses.forEach(course => formData.append('courses', course));
-    formData.append('file', employee.file);
-
+    // formData.append('file', employee.file);
+    const file = employee.file;
+    // console.log(formData)
     try {
       const response = await fetch(`http://localhost:3000/update/${params.id}`, {
         method: 'PUT',
-        body: formData
-      });
+        body: JSON.stringify({name,email,mobile,designation,gender,courses,file}),
+        headers:{'content-Type':"application/json"}
+    });
+    
       if (response.ok) {
-      
+        console.log(response)
+        setEmployee({
+          name: '',
+          email: '',
+          mobile: '',
+          designation: '',
+          gender: '',
+          courses: [],
+          file: null
+        });
+        
+        // setName('');
+        // setEmail('');
+        // setMobile('');
+        // setDesignation('');
+        // setGender('');
+        // setCourses('');
+        // setFile(null);
         alert('Employee updated successfully.');
       } else {
     

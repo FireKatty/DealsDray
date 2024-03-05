@@ -10,20 +10,22 @@ function EmployeeList() {
 
   useEffect(() => {
   
-    const fetchData = async () => {
-      try {
-  
-        const response = await fetch('http://localhost:3000/list');
-        const data = await response.json();
-        setEmployees(data);
-        setFilteredEmployees(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    
 
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+
+      const response = await fetch('http://localhost:3000/list');
+      const data = await response.json();
+      setEmployees(data);
+      setFilteredEmployees(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -35,11 +37,7 @@ function EmployeeList() {
 
   const navigate = useNavigate();
   const handleEdit = (id) => {
-
     navigate('/updateproduct')
-    
-    
-    
   };
 
   const handleDelete = async (id) => {
@@ -49,8 +47,8 @@ function EmployeeList() {
       });
       
       if (response.ok) {
-        
-        setEmployees(employees.filter(employee => employee.id !== id));
+        fetchData();
+
       } else {
         console.error('Error deleting employee:', response.statusText);
       }
@@ -64,6 +62,7 @@ function EmployeeList() {
     <div>
       <input
         type="text"
+        className="search-bar"
         placeholder="Search by Name"
         value={searchTerm}
         onChange={handleSearch}
@@ -98,7 +97,7 @@ function EmployeeList() {
               <td>{employee.createDate}</td>
               <td>
                 {/* <button onClick={() => handleEdit(employee._id)}>Edit</button> */}
-                <Link to={"/update/"+employee._id}>Update</Link>
+                <Link to={"/update/"+employee._id}>Edit</Link>
               
                 <button onClick={() => handleDelete(employee._id)}>Delete</button>
               </td>

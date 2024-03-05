@@ -31,9 +31,18 @@ function Product() {
       if (result.ok) {
   
         const data = await result.json();
+        
         console.log('API response:', data);
+        setName('');
+        setEmail('');
+        setMobile('');
+        setDesignation('');
+        setGender('');
+        setCourses('');
+        setFile(null);
+        alert("Employee Created successfully.")
       } else {
-
+        alert("Please enter different email.")
         console.error('API error:', result.statusText);
       }
     } catch (error) {

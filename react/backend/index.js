@@ -109,11 +109,10 @@ app.get('/list',async(req,res)=>{
 
 
 app.put('/update/:id', async (req, res) => {
-  const { id } = req.params;
+  // const { id } = req.params;
   const { name, email, mobile, designation, gender, courses } = req.body;
-
   try {
-    const updatedEmployee = await Employee.findByIdAndUpdate(id, {
+    const updatedEmployee = await Employee.findByIdAndUpdate({_id:req.params.id}, {
       name,
       email,
       mobile,
@@ -168,6 +167,19 @@ app.get('/data/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
+// app.get("/search/:key",async(req,res)=>{
+//   let result = await Employee.find({
+//       "$or":[
+//           {name:{$regex:req.params.key}},
+//           {email:{$regex:req.params.key}},
+//           {courses:{$regex:req.params.key}},
+//           {id:{$regex:req.params.key}}
+//       ]       
+//   });
+//   res.status(200).send(result)
+// })
 
 
 app.listen(PORT, () => {

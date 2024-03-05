@@ -168,18 +168,20 @@ label, input, select {
 }
 
 
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 300px; /* Adjust width as needed */
+}
+
 .container {
   margin: 20px auto;
   max-width: 800px;
 }
 
-input[type="text"] {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  /* width: 100%; */
-}
+
 
 table {
   width: 100%;
