@@ -19,17 +19,20 @@ const SignUp = ()=>{
     
     const datacollect = async () => {
         try {
-            console.log(name, email, password);
+            // console.log(name, email, password);
             let result = await fetch("http://localhost:3000/signup", {
                 method: 'POST',
                 body: JSON.stringify({ name, email, password }),
                 headers: { "Content-Type": "application/json" }
             });
             result = await result.json();
-            console.log(result);
-            localStorage.setItem("user",JSON.stringify(result));
-        
-            navigate("/");
+            console.log(result.auth);
+            if (result.auth){
+                localStorage.setItem("user",JSON.stringify(result));
+                localStorage.setItem('token',JSON.stringify(result.auth))
+                navigate("/");
+            }
+            
 
            
 

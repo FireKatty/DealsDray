@@ -11,7 +11,7 @@ const Login =()=>{
             navigate("/")
         }
     })
-    const login=async()=>{
+    const login=async()=>{ 
         console.log(email,password)
         let result = await fetch('http://localhost:3000/login',{
             method:'post',
@@ -19,10 +19,16 @@ const Login =()=>{
             headers:{'content-Type':"application/json"}
         })
         result = await result.json()
-        console.warn(result)
-        localStorage.setItem("user",JSON.stringify(result));
+        // console.warn(result.email)
+        // console.log(result.user.email)
+        if (result.auth){
+            localStorage.setItem('user',JSON.stringify(result));
+            localStorage.setItem('token',JSON.stringify(result.auth));
+            navigate("/");
+        }
+        // localStorage.setItem("user",JSON.stringify(result));
         // localStorage.setItem('user',JSON.stringify(result.user));
-        navigate("/")
+        // navigate("/")
     
 
     }

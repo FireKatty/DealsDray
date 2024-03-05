@@ -4,7 +4,7 @@ const cors = require("cors");
 const multer = require('multer');
 const app = express();
 const Jwt = require('jsonwebtoken');
-const jwtKey = "e-comm";
+const jwtKey = "e-empolyee";
 app.use(express.json());
 app.use(cors());
 
@@ -46,15 +46,32 @@ app.post("/signup",async(req,res)=>{
     result = result.toObject();
     delete result.password
     console.warn(result)
-    res.send(result)
+      Jwt.sign({result},jwtKey,{expiresIn:"2h"},(err,token)=>{
+        if (err){
+          res.send({user:"Please try after sometime"})
+        }
+        res.send({result,auth:token})
+      })
+    
+    // res.send(result)
     
 });
 
 app.post("/login",async(req,res)=>{
     if (req.body.password && req.body.email){
       console.log(req.body)
-        let user = await Userid.findOne(req.body).select("-password");
-        res.send(user)}
+      let user = await Userid.findOne(req.body).select("-password");
+      if (user){
+        Jwt.sign( {user}, jwtKey,{expiresIn:"2h"},(err,token)=>{
+          if (err){
+            res.send({result:"Please try after some time"})
+          }
+          res.send({user,auth:token})
+        })
+      }
+        
+        // res.send(user)
+      }
 
 });
 
