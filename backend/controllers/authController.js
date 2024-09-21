@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const generateToken = (userId)=>{
     const token = jwt.sign( {userId}, process.env.JWT_SECRET, {
-        expiresIn: "15d"
+        expiresIn: "1d"
     } );
     return token;
 };
@@ -54,7 +54,7 @@ const signup = async (req, res) => {
       console.log(newUser)
       // Generate JWT token
       const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
-        expiresIn: "15d",
+        expiresIn: "1d",
       });
   
       // Send the response with the new user and token
